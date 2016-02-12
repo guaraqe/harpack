@@ -19,10 +19,10 @@ The eigenpair problem is represented by the `Problem` type:
                  | NonSymmetric NWhich
 
 where `SWhich` and `NWhich` represents the eigenvalues to be found.
-  - The first character refers to 'S'ymmetric or 'N'on-Symmetric;
-  - The second refers to 'L'argest or 'S'mallest;
-  - The third refers to 'M'agnitude, 'A'lgebraic, 'R'eal, 'I'maginary;
-  - The option 'BE' means 'BE'tween, for central eigenvalues.
+  - The first character refers to *S*ymmetric or *N*on-Symmetric;
+  - The second refers to *L*argest or *S*mallest;
+  - The third refers to *M*agnitude, *A*lgebraic, *R*eal, *I*maginary;
+  - The option *BE* means *BE*tween, for central eigenvalues.
 
 The data types are:
 
@@ -48,6 +48,5 @@ Notes
 
 Currently building with:
 
-- ARPACK: http://forge.scilab.org/index.php/p/arpack-ng/source/tree/3.1.5/
-- OpenBlas:
-  https://github.com/xianyi/OpenBLAS/tree/7b8604ea29f7a7c258b3d7faf1f81eef750280f6
+- [ARPACK](http://forge.scilab.org/index.php/p/arpack-ng/source/tree/3.1.5/)
+- [OpenBlas](https://github.com/xianyi/OpenBLAS/tree/7b8604ea29f7a7c258b3d7faf1f81eef750280f6)
