@@ -1,63 +1,53 @@
-HEigs
-=====
+HArpack
+=======
 
-Haskell interface to ARPACK for large sparse eigenvalue problems.
+This is a fork of [HEigs](https://github.com/cmiller730/HEigs/) with
+similar functionality but a fairly different interface.
 
-ARPACK is a Fortran code for computing a few eigenpairs associated with large
-sparse linear systems. This package wraps a subset of ARPACK's functionality and
-attempts to deliver something similar to scipy or MATLAB's eigs functions.
+It currently supports symmetrical and non-symmetrical eigenvalues
+problems of the form `Mx = λx`
 
-To solve an eigensystem `A x = lambda x` the user needs to define an
-`ArpackLinearOp`
+Its fundamental data type is the `SparseMatrix`:
 
+    data SparseMatrix =
+      SparseMatrix { dim ::Int
+                   , indexes :: [((Int,Int),Double)] }
 
-    type ArpackLinearOp = (SV.IOVector CDouble -> SV.IOVector CDouble -> IO ())
+The eigenpair problem is represented by the `Problem` type:
 
+    data Problem = Symmetric SWhich
+                 | NonSymmetric NWhich
 
-This operator should overwrite the second vector with the matrix times the first
-vector. To compute the eigenvalues call
+where `SWhich` and `NWhich` represents the eigenvalues to be found.
+  - The first character refers to 'S'ymmetric or 'N'on-Symmetric;
+  - The second refers to 'L'argest or 'S'mallest;
+  - The third refers to 'M'agnitude, 'A'lgebraic, 'R'eal, 'I'maginary;
+  - The option 'BE' means 'BE'tween, for central eigenvalues.
 
-    eigs :: ArpackLinearOp -> ProblemDim -> Which -> NumEV -> Tolerance -> 
-            MaxIter -> IO (Bool, [(Complex Double, V.Vector (Complex Double))])
-        
-Where the parameters are:
+The data types are:
 
-- `type ProblemDim = Int` : The size of the linear system.
-- `data Which = LM | SM` : Which eigenvalues to compute, those with largest
-  magnitude (`LM`) or smallest magnitude (`SM`)
-- `type NumEV = Int` : The number of eigenpairs to compute.
-- `type Tolerance = Double` : The error tolerance. Setting to 0 uses the machine
-  eps.
-- `type MaxIter = Int` : The maximum number of Arnoldi iterations.
+    data SWhich = SLM | SSM | SLA | SSA | SBE
+    data NWhich = NLM | NSM | NLR | NSR | NLI | NSI
+    
+The result is given as:
 
-This function returns `(False, [])` if ARPACK was unsuccessful. Otherwise the
-second element in the tuple contains a list of the computed NumEV eigenvalues
-and eigenvectors.
+    data Result = RError
+                | RReal [(Double,Vector Double)]
+                | RComplex [(Complex Double, Vector (Complex Double))]
+
+This decision can certainly be improved, I accept suggestions. Finally, the `eigs` function does what we expect:
+
+    eigs :: SparseMatrix
+         -> Problem
+         -> HowMany
+         -> Result
+
 
 Notes
-======
+=====
 
 Currently building with:
 
 - ARPACK: http://forge.scilab.org/index.php/p/arpack-ng/source/tree/3.1.5/
 - OpenBlas:
   https://github.com/xianyi/OpenBLAS/tree/7b8604ea29f7a7c258b3d7faf1f81eef750280f6
-
-
-History
-=======
-
-0.0.1 First working interface to ARPACK. Can solve Ax = lambda x for largest and
-      smallest magnitude eigenproblems.
-      
-Future Plans
-============
-
-- Support additional values for Which.
-- Write a second wrapper for ARPACK's symmetric driver.
-
-I usually only write what I need for today. If you need to access other portions of ARPACKs functionality
-please let me know and I'll do my best to support it.
-
-Chris Miller
-cmiller730@gmail.com
