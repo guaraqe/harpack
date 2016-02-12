@@ -1,0 +1,102 @@
+* d_aupd
+** IDO
+Reverse communication flag, should start with 0
+- dnaupd :: Ptr Int
+- dsaupd :: Ptr Int
+** BMAT
+Type of matrix, should be 'I' or 'G'
+- dnaupd :: Ptr Char
+- dsaupd :: Ptr Char
+** N
+Dimension of the eigenproblem
+- dnaupd :: Ptr Int
+- dsaupd :: Ptr Int
+** WHICH
+Which eigenvalues to calculate
+- dnaupd :: Ptr Char (2), {L,S}{M,R,I} 
+- dsaupd :: Ptr Char (2), {L,S}{A,M}|BE
+** NEV
+Number of eigenvalues to be calculated
+- dnaupd :: Ptr Int, 0 < NEV < N - 1
+- dsaupd :: Ptr Int, 0 < NEV < N
+** TOL
+Numerical tolerance to be used
+- dnaupd :: Ptr Double, 0 = machine precision
+- dsaupd :: Ptr Double, 0 = machine precision
+** RESID
+Residual vector
+- dnaupd :: Ptr Double (N)
+- dsaupd :: Ptr Double (N)
+** NCV
+Number of columns of V
+- dnaupd :: Ptr Int, NCV <= N, 2 <= NCV - NEV
+- dsaupd :: Ptr Int, NCV <= N
+** V 
+Arnoldi/Lanczos basis vectors
+- dnaupd :: Ptr Double, NCV*N
+- dsaupd :: Ptr Double, NCV*N
+** LDV
+Leading dimension of V
+- dnaupd :: Ptr Int
+- dsaupd :: Ptr Int
+** IPARAM
+Parameters
+- dnaupd :: Ptr Int (11)
+- dsaupd :: Ptr Int (11)
+** IPNTR
+Starting locations in the work arrays
+- dnaupd :: Ptr Int (14)
+- dsaupd :: Ptr Int (11)
+** WORKD
+Work array
+- dnaupd :: Ptr Double (3N)
+- dsaupd :: Ptr Double (3N)
+** WORKL
+Work array
+- dnaupd :: Ptr Double (LWORKL)
+- dsaupd :: Ptr Double (LWORKL)
+** LWORKL
+Length of WORKL
+- dnaupd :: Ptr Int, LWORKL >= 3 NCV^2 + 6 NCV
+- dsaupd :: Ptr Int, LWORKL >= NCV^2 + 8 NCV
+** INFO
+Return information
+- dnaupd :: Ptr Int
+- dsaupd :: Ptr Int
+* d_eupd
+** RVEC
+Whether to compute Ritz vectors
+- dnaupd :: Ptr 'Bool'
+- dsaupd :: Ptr 'Bool'
+** HOWMNY
+Form of the basis
+- dnaupd :: Ptr Char, 'A','P,'S'
+- dsaupd :: Ptr Char, 'A','S'
+** SELECT
+Choose which eigenvalues are to be calculated
+- dnaupd :: Ptr Int (NCV)
+- dsaupd :: Ptr Int (NCV)
+** D 
+Ritz value approximations
+- dnaupd :: real and imaginary 
+  - DR :: Ptr Double (NEV+1)
+  - DI :: Ptr Double (NEV+1)
+- dsaupd :: Ptr Double (NEV)
+** Z
+Ritz vectors approximations
+- dnaupd :: Ptr Double (N * NEV + 1)
+- dsaupd :: Ptr Double (N * NEV)
+** LDZ
+Leading dimension of Z
+- dnaupd :: Ptr Int
+- dsaupd :: Ptr Int
+** SIGMA
+Shift
+- dnaupd :: real and imaginary
+  - SIGMAR :: Ptr Double
+  - SIGMAI :: Ptr Double
+- dsaupd :: Ptr Double
+** WORKEV
+Workplace
+- dnaupd :: Ptr Double (3NCV)
+- dsaupd :: Nothing

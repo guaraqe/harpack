@@ -1,0 +1,41 @@
+Name:          harpack
+Version:       0.1.0
+cabal-version: >= 1.8
+License:       BSD3
+License-File:  LICENSE
+Author:	       2013-2015 Christopher Miller, 2016 quaraqe
+Synopsis:      An interface to ARPACK for sparse eigenvalue problems.
+Build-Type:    Simple
+Category:      Numeric, Linear Algepra, Eigenvalues, Sparse
+Maintainer:    guaraqe@openmailbox.org
+Description:   This package aims to create a HMatrix-compatible interface to ARPACK.
+               It currently supports a limited subset of ARPACK's functionality.
+
+source-repository head
+  type:     git
+  location: https://github.com/guaraqe/harpack/
+  tag:      0.1.0
+
+Library
+  hs-source-dirs:  lib
+  build-depends:   base
+                 , monad-loops >=0.4.2
+                 , vector
+                 , storable-complex >=0.2
+                 , tasty
+                 , tasty-hunit
+  exposed-modules: Numeric.LinearAlgebra.HArpack
+  extensions:      ForeignFunctionInterface
+  extra-libraries: arpack, openblas
+
+Test-Suite test-unsymmetric
+  hs-source-dirs: test
+  type:           exitcode-stdio-1.0
+  main-is:        test-unsymmetric.hs
+  build-depends:  base
+                , tasty
+                , tasty-hunit
+                , tasty-quickcheck
+                , tasty-smallcheck
+                , harpack
+                , vector
