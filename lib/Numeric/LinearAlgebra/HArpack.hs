@@ -35,6 +35,7 @@ import           System.IO.Unsafe
 data SparseMatrix =
   SparseMatrix { dim ::Int
                , indexes :: [((Int,Int),Double)] }
+  deriving Show
 
 data LinearOperator =
   LinearOperator
@@ -399,6 +400,7 @@ eigsN f which' n' nev' tol' iters = unsafePerformIO $ do
 data Result = RError
             | RReal [(Double,Vector Double)]
             | RComplex [(Complex Double, Vector (Complex Double))]
+              deriving Show
 
 eigs :: SparseMatrix
      -> Problem

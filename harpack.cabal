@@ -11,11 +11,6 @@ Maintainer:    guaraqe@openmailbox.org
 Description:   This package aims to create a HMatrix-compatible interface to ARPACK.
                It currently supports a limited subset of ARPACK's functionality.
 
-source-repository head
-  type:     git
-  location: https://github.com/guaraqe/harpack/
-  tag:      0.1.0
-
 Library
   hs-source-dirs:  lib
   build-depends:   base
