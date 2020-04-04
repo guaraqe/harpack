@@ -245,6 +245,7 @@ arpack :: LinearOperator -> Problem -> Dimension -> HowMany -> Tolerance ->
           Iterations -> IO ArpackSetup
 arpack op problem n nev tol mxItr = do
   ar <- setupArpack problem n nev tol mxItr
+  iterateArpack problem op ar
   whileM_ ((== 1) <$> peek (aIDO ar)) (iterateArpack problem op ar)
   return ar
 

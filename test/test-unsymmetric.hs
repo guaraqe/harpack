@@ -48,7 +48,7 @@ diagMatLMCheck =
       evals = map fst ePairs
       trueEvals = [1000,999..]
       diff = map abs $ zipWith (-) evals trueEvals
-  in zoera evals $ all (< 1e-10) diff
+  in all (< 1e-10) diff
 
 decreasingC = sortBy (compare `on` (\x -> - realPart (abs (fst x))))
 
@@ -60,7 +60,7 @@ diagMatSMCheck =
       evals = map fst ePairs
       trueEvals = map (:+ 0) [1,2..]
       diff = map (realPart . abs) $ zipWith (-) evals trueEvals
-  in zoera evals $ all (< 1e-10) diff
+  in all (< 1e-10) diff
 
 complexEigsCheck :: Bool
 complexEigsCheck =
@@ -69,6 +69,4 @@ complexEigsCheck =
       evals = map fst ePairs
       trueEvals = [1 :+ 2, 1 :+ (-2), 2, 1, 0.5]
       diff = map (realPart . abs) $ zipWith (-) evals trueEvals
-  in zoera evals $ all (< 1e-10) diff
-
-zoera x y = unsafePerformIO $ mapM_ print x >> return y
+  in all (< 1e-10) diff
